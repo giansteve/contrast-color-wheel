@@ -1,4 +1,5 @@
 # WCAG Contrast Wheel
+![](screenshot.png)
 
 A dependency-free interactive color wheel that visualizes WCAG contrast boundaries in real time.
 
