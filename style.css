@@ -1,0 +1,200 @@
+/* style.css */
+:root {
+  --border: rgba(0,0,0,.12);
+  --muted: rgba(0,0,0,.65);
+  --bg: #f6f7f9;
+  --card: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: #111;
+}
+
+.app { max-width: 1100px; margin: 0 auto; padding: 18px; }
+
+.header h1 { margin: 0 0 6px 0; font-size: 22px; }
+.sub { margin: 0; color: var(--muted); }
+
+.controls {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.control { display: flex; flex-direction: column; gap: 6px; min-width: 170px; }
+.control.grow { flex: 1; min-width: 260px; }
+
+label { font-size: 13px; color: var(--muted); }
+
+.rangeRow { display: flex; align-items: center; gap: 10px; }
+input[type="range"] { width: 100%; }
+
+input[type="color"] {
+  height: 38px;
+  padding: 2px 6px;
+  width: 70px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.legend { display:flex; gap:8px; flex-wrap:wrap; }
+.chip {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.04);
+}
+
+.stage {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 14px;
+}
+
+.canvasWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* horizontal centering */
+  justify-content: center; /* vertical centering */
+}
+
+#wheel { width: 300pt; height: 300pt; touch-action: none; }
+
+.hint { margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+.panel {
+  padding: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.swatches { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.swatchCard {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.swatchLabel { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+
+.swatch {
+  height: 52px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.readout {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.k { color: var(--muted); font-size: 13px; }
+.v { font-size: 13px; }
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  align-self: flex-start;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.math summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.mathBody { margin-top: 8px; font-size: 12px; line-height: 1.45; color: #333; }
+
+.footer { margin-top: 12px; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 960px) {
+  .stage { grid-template-columns: 1fr; }
+}
+
+.preview {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.previewLabel {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.previewBox {
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.pv {
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.pv-bold { font-weight: 700; }
+.pv-italic { font-style: italic; }
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.previewSans {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.previewSerif {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.k.help {
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  cursor: help;
+}
+
+.bgRow { display: flex; gap: 10px; align-items: center; }
+
+#confirmBg {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+}
+
+#confirmBg:active { transform: translateY(1px); }
+
+.bgMeta { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
