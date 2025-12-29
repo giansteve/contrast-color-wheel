@@ -1,4 +1,5 @@
-// script.js
+const APP_VERSION = "0.1.0";
+
 const els = {
   bgPending: document.getElementById("bgPending"),
   bgPendingHex: document.getElementById("bgPendingHex"),
