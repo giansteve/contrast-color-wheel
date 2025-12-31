@@ -8,9 +8,14 @@
 
 * { box-sizing: border-box; }
 
+html {
+  font-size: medium;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: "Atkinson Hyperlegible Next", system-ui, sans-serif;
+  line-height: 1.5;
   background: var(--bg);
   color: #111;
 }
