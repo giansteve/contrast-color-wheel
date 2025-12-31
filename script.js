@@ -155,11 +155,23 @@ function clampToWheel(x, y, cx, cy, R) {
 }
 
 function drawSelectorCircle(x, y) {
+  ctx.beginPath();
+  ctx.arc(x + 0.5, y + 0.5, 1.5, 0, Math.PI * 2);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "#fafafa";
+  ctx.stroke();
+
   ctx.save();
+  ctx.beginPath();
+  ctx.arc(x + 0.5, y + 0.5, 3, 0, Math.PI * 2);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+  ctx.stroke();
+
   ctx.beginPath();
   ctx.arc(x + 0.5, y + 0.5, 5, 0, Math.PI * 2);
   ctx.lineWidth = 3;
-  ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+  ctx.strokeStyle = "#fafafa";
   ctx.stroke();
 
   ctx.restore();
