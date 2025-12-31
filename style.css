@@ -54,15 +54,17 @@ body {
   flex-direction: column;
   gap: 6px;
   min-width: 170px;
+  /* font-weight: 700; */
 }
 
 .control.grow {
   flex: 1;
   min-width: 260px;
+  /* font-weight: 700; */
 }
 
 label {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
 }
 
@@ -92,7 +94,7 @@ input[type="color"] {
 }
 
 .chip {
-  font-size: 13px;
+  font-size: 15px;
   padding: 4px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
@@ -123,7 +125,7 @@ input[type="color"] {
 
 .hint {
   margin-top: 8px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
 }
 
@@ -150,7 +152,7 @@ input[type="color"] {
 }
 
 .swatchLabel {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
   margin-bottom: 8px;
 }
@@ -177,11 +179,12 @@ input[type="color"] {
 
 .k {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .v {
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .badge {
@@ -193,17 +196,18 @@ input[type="color"] {
 
 .mono {
   font-family: "Atkinson Hyperlegible Mono", ui-monospace, monospace;
+  font-size: 14px;
 }
 
 .math summary {
   cursor: pointer;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .mathBody {
   margin-top: 8px;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.45;
   color: #333;
 }
@@ -211,7 +215,7 @@ input[type="color"] {
 .footer {
   margin-top: 12px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
 }
 
 @media (max-width: 960px) {
@@ -227,7 +231,7 @@ input[type="color"] {
 }
 
 .previewLabel {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
   margin-bottom: 8px;
 }
@@ -238,7 +242,7 @@ input[type="color"] {
 }
 
 .pv {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.4;
   margin-bottom: 6px;
 }
@@ -265,10 +269,26 @@ input[type="color"] {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+/* .k.help {
+  text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  cursor: help;
+} */
+
 .k.help {
   text-decoration: underline dotted;
   text-underline-offset: 2px;
   cursor: help;
+  display: flex;
+  align-items: left;
+  gap: 18px;
+  /* cursor: pointer; */
+  user-select: none;
+  font-size: medium;
+}
+
+.k.help input {
+  transform: translateY(-3px);
 }
 
 .bgRow {
@@ -295,5 +315,5 @@ input[type="color"] {
   gap: 14px;
   flex-wrap: wrap;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
 }

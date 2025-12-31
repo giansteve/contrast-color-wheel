@@ -15,6 +15,9 @@ const els = {
   t3: document.getElementById("t3"),
   t45: document.getElementById("t45"),
   t7: document.getElementById("t7"),
+  use3: document.getElementById("use3"),
+  use45: document.getElementById("use45"),
+  use7: document.getElementById("use7"),
 };
 
 const ctx = els.wheel.getContext("2d", { willReadFrequently: true });
@@ -34,6 +37,23 @@ let baseImageData = null; // stores wheel pixels WITHOUT isolines/labels/selecto
 let isDragging = false;
 
 let appliedBgHex = "#fafafa"; // only this triggers recomputation
+
+function requiredThreshold() {
+  const ts = [];
+  if (els.use3?.checked) ts.push(3.0);
+  if (els.use45?.checked) ts.push(4.5);
+  if (els.use7?.checked) ts.push(7.0);
+
+  // if none checked, default to 3.0 so it never becomes empty by accident
+  if (ts.length === 0) return 3.0;
+
+  // AND behavior: require the strictest selected level
+  return Math.max(...ts);
+}
+
+function passesSelectedLevels(cr) {
+  return cr >= requiredThreshold();
+}
 
 function clamp01(x) {
   return Math.min(1, Math.max(0, x));
@@ -163,15 +183,22 @@ function drawSelectorCircle(x, y) {
 
   ctx.save();
   ctx.beginPath();
-  ctx.arc(x + 0.5, y + 0.5, 3, 0, Math.PI * 2);
+  ctx.arc(x + 0.5, y + 0.5, 3.5, 0, Math.PI * 2);
   ctx.lineWidth = 3;
-  ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+  ctx.strokeStyle = "#000000";
   ctx.stroke();
-
+  
   ctx.beginPath();
   ctx.arc(x + 0.5, y + 0.5, 5, 0, Math.PI * 2);
   ctx.lineWidth = 3;
   ctx.strokeStyle = "#fafafa";
+  ctx.stroke();
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(x + 0.5, y + 0.5, 7, 0, Math.PI * 2);
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#000000";
   ctx.stroke();
 
   ctx.restore();
@@ -180,6 +207,7 @@ function drawSelectorCircle(x, y) {
 function drawWheel() {
   const bgRgb = hexToRgb(appliedBgHex);
   const l = parseFloat(els.lightness.value) / 100;
+  const Treq = requiredThreshold();
 
   // els.bgHex.textContent = appliedBgHex.toLowerCase();
   els.bgAppliedHex.textContent = appliedBgHex.toLowerCase();
@@ -187,7 +215,6 @@ function drawWheel() {
   els.lightnessVal.textContent = String(Math.round(l * 100));
   // els.bgSwatch.style.background = appliedBgHex;
   els.bgSwatch.style.background = appliedBgHex;
-
 
   const w = els.wheel.width;
   const h = els.wheel.height;
@@ -225,8 +252,22 @@ function drawWheel() {
       const cr = contrastRatio(bgRgb, fgRgb);
       crField[idx1] = cr;
 
-      // Hide colors that fail all WCAG levels (cr < 3): paint as background
-      if (cr < 3.0) {
+      // // Hide colors that fail all WCAG levels (cr < 3): paint as background
+      // if (cr < 3.0) {
+      //   data[idx4 + 0] = bgRgb.r;
+      //   data[idx4 + 1] = bgRgb.g;
+      //   data[idx4 + 2] = bgRgb.b;
+      //   data[idx4 + 3] = 255;
+      // } else {
+      //   data[idx4 + 0] = fgRgb.r;
+      //   data[idx4 + 1] = fgRgb.g;
+      //   data[idx4 + 2] = fgRgb.b;
+      //   data[idx4 + 3] = 255;
+      // }
+
+      // Hide colors that are not required by user
+      if (cr < Treq) {
+        // Hide: paint background (or alpha=0 if you prefer)
         data[idx4 + 0] = bgRgb.r;
         data[idx4 + 1] = bgRgb.g;
         data[idx4 + 2] = bgRgb.b;
@@ -396,6 +437,10 @@ els.wheel.addEventListener("pointercancel", () => {
   isDragging = false;
 });
 
+els.use3?.addEventListener("change", drawWheel);
+els.use45?.addEventListener("change", drawWheel);
+els.use7?.addEventListener("change", drawWheel);
+
 (function init() {
   appliedBgHex = els.bgPending.value.toLowerCase();
   els.bgPendingHex.textContent = appliedBgHex;
@@ -403,4 +448,3 @@ els.wheel.addEventListener("pointercancel", () => {
   els.fgSwatch.style.background = "#fafafa";
   drawWheel();
 })();
-

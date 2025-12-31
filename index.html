@@ -1,144 +1,173 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Contrast Isoline Color Wheel (WCAG)</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script src="script.js?v=0.1.0"></script> -->
+  </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-  <title>Contrast Isoline Color Wheel (WCAG)</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- <script src="script.js?v=0.1.0"></script> -->
-</head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <h1>Contrast Isoline Color Wheel</h1>
+        <p class="sub">
+          <a
+            href="https://www.w3.org/WAI/standards-guidelines/wcag/"
+            target="_blank"
+            >WCAG</a
+          >
+          contrast isolines against a chosen background. Drag the selector on
+          the wheel.
+        </p>
+      </header>
 
-<body>
-  <main class="app">
-    <header class="header">
-      <h1>Contrast Isoline Color Wheel</h1>
-      <p class="sub">
-        <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">WCAG</a>
-        contrast isolines against a chosen background. Drag the selector on the wheel.
-      </p>
-    </header>
+      <section class="controls">
+        <div class="control">
+          <label for="bg">Background</label>
+          <div class="bgRow">
+            <input id="bgPending" type="color" value="#fafafa" />
+            <button id="confirmBg" type="button">Confirm</button>
+          </div>
 
-    <section class="controls">
-      <div class="control">
-        <label for="bg">Background</label>
-        <div class="bgRow">
-          <input id="bgPending" type="color" value="#fafafa" />
-          <button id="confirmBg" type="button">Confirm</button>
+          <div class="bgMeta">
+            <span class="mono"
+              >Pending: <span id="bgPendingHex">#fafafa</span></span
+            >
+            <span class="mono">Applied: <span id="bgHex">#fafafa</span></span>
+          </div>
         </div>
 
-        <div class="bgMeta">
-          <span class="mono">Pending: <span id="bgPendingHex">#fafafa</span></span>
-          <span class="mono">Applied: <span id="bgHex">#fafafa</span></span>
+        <div class="control grow">
+          <label for="lightness">Wheel lightness (HSL)</label>
+          <div class="rangeRow">
+            <input id="lightness" type="range" min="0" max="100" value="50" />
+            <span id="lightnessVal" class="mono">50</span>
+          </div>
         </div>
-      </div>
 
-      <div class="control grow">
-        <label for="lightness">Wheel lightness (HSL)</label>
-        <div class="rangeRow">
-          <input id="lightness" type="range" min="0" max="100" value="50" />
-          <span id="lightnessVal" class="mono">50</span>
-        </div>
-      </div>
-
-      <!-- <div class="control">
+        <!-- <div class="control">
         <label>Isolines</label>
         <div class="legend">
           <span class="chip">editable in script.js</span>
         </div>
       </div> -->
-    </section>
+      </section>
 
-    <section class="stage">
-      <div class="canvasWrap">
-        <canvas id="wheel" width="600" height="600" aria-label="Color wheel"></canvas>
-        <!-- <div class="hint">Drag the circle to select a color.</div> -->
+      <section class="stage">
+        <div class="canvasWrap">
+          <canvas
+            id="wheel"
+            width="600"
+            height="600"
+            aria-label="Color wheel"
+          ></canvas>
+          <!-- <div class="hint">Drag the circle to select a color.</div> -->
+        </div>
+
+        <aside class="panel">
+          <div class="swatches">
+            <div class="swatchCard">
+              <div class="swatchLabel">Background</div>
+              <div id="bgSwatch" class="swatch"></div>
+            </div>
+            <div class="swatchCard">
+              <div class="swatchLabel">Selected</div>
+              <div id="fgSwatch" class="swatch"></div>
+            </div>
+          </div>
+
+          <div class="readout">
+            <div class="row">
+              <div class="k">Selected hex</div>
+              <div id="fgHex" class="v mono">—</div>
+            </div>
+            <div class="row">
+              <div class="k">Contrast ratio</div>
+              <div id="cr" class="v mono">—</div>
+            </div>
+
+            <div class="row">
+              <label class="k help">
+                <input id="use3" type="checkbox" checked />
+                <span
+                  title="WCAG AA for large text (≥ 18pt regular or ≥ 14pt bold). Minimum acceptable for big headings and large UI text."
+                  >3.0</span
+                >
+              </label>
+              <div id="t3" class="v badge">—</div>
+            </div>
+
+            <div class="row">
+              <label class="k help">
+                <input id="use45" type="checkbox" />
+                <span
+                  title="WCAG AA for normal text. Standard minimum for body text readability (typical paragraph sizes)."
+                  >4.5</span
+                >
+              </label>
+              <div id="t45" class="v badge">—</div>
+            </div>
+
+            <div class="row">
+              <label class="k help">
+                <input id="use7" type="checkbox" />
+                <span
+                  title="WCAG AAA (enhanced) for normal text. Strong contrast recommended for high readability and accessibility."
+                  >7.0</span
+                >
+              </label>
+              <div id="t7" class="v badge">—</div>
+            </div>
+          </div>
+
+          <details class="math">
+            <summary>Math used</summary>
+            <div class="mathBody mono">
+              Contrast = (Lmax + 0.05) / (Lmin + 0.05)<br />
+              L = 0.2126·R + 0.7152·G + 0.0722·B (linear RGB)<br />
+              linear(C) = C/12.92 if C≤0.04045 else ((C+0.055)/1.055)^2.4
+            </div>
+          </details>
+        </aside>
+      </section>
+
+      <div class="preview">
+        <div class="previewLabel">Live preview</div>
+
+        <div id="previewGrid" class="previewGrid">
+          <div id="previewSans" class="previewBox previewSans">
+            <div class="pv pv-normal">I’m not crazy...</div>
+            <div class="pv pv-bold">my imaginary friend</div>
+            <div class="pv pv-normal">says everything is</div>
+            <div class="pv pv-italic">totally fine</div>
+          </div>
+
+          <div id="previewSerif" class="previewBox previewSerif">
+            <div class="pv pv-normal">
+              Non quia difficilia sunt non audemus,
+            </div>
+            <div class="pv pv-bold">sed quia non audemus</div>
+            <div class="pv pv-italic">difficilia sunt.</div>
+            <div class="pv pv-normal">[Seneca]</div>
+          </div>
+        </div>
       </div>
+    </main>
 
-      <aside class="panel">
-        <div class="swatches">
-          <div class="swatchCard">
-            <div class="swatchLabel">Background</div>
-            <div id="bgSwatch" class="swatch"></div>
-          </div>
-          <div class="swatchCard">
-            <div class="swatchLabel">Selected</div>
-            <div id="fgSwatch" class="swatch"></div>
-          </div>
-        </div>
-
-        <div class="readout">
-          <div class="row">
-            <div class="k">Selected hex</div>
-            <div id="fgHex" class="v mono">—</div>
-          </div>
-          <div class="row">
-            <div class="k">Contrast ratio</div>
-            <div id="cr" class="v mono">—</div>
-          </div>
-          <div class="row">
-            <div class="k help" title="WCAG AA for large text (≥ 18pt regular or ≥ 14pt bold). Minimum acceptable for big headings and large UI text.">
-              3.0
-            </div>
-            <div id="t3" class="v badge">—</div>
-          </div>
-
-          <div class="row">
-            <div class="k help" title="WCAG AA for normal text. Standard minimum for body text readability (typical paragraph sizes).">
-              4.5
-            </div>
-            <div id="t45" class="v badge">—</div>
-          </div>
-
-          <div class="row">
-            <div class="k help" title="WCAG AAA (enhanced) for normal text. Strong contrast recommended for high readability and accessibility.">
-              7.0
-            </div>
-            <div id="t7" class="v badge">—</div>
-          </div>
-        </div>
-
-        <details class="math">
-          <summary>Math used</summary>
-          <div class="mathBody mono">
-            Contrast = (Lmax + 0.05) / (Lmin + 0.05)<br />
-            L = 0.2126·R + 0.7152·G + 0.0722·B (linear RGB)<br />
-            linear(C) = C/12.92 if C≤0.04045 else ((C+0.055)/1.055)^2.4
-          </div>
-        </details>
-      </aside>
-    </section>
-
-    <div class="preview">
-      <div class="previewLabel">Live preview</div>
-
-      <div id="previewGrid" class="previewGrid">
-        <div id="previewSans" class="previewBox previewSans">
-          <div class="pv pv-normal">I’m not crazy...</div>
-          <div class="pv pv-bold">my imaginary friend</div>
-          <div class="pv pv-normal">says everything is</div>
-          <div class="pv pv-italic">totally fine</div>
-        </div>
-
-        <div id="previewSerif" class="previewBox previewSerif">
-          <div class="pv pv-normal">
-            Non quia difficilia sunt non audemus,
-          </div>
-          <div class="pv pv-bold">sed quia non audemus</div>
-          <div class="pv pv-italic">difficilia sunt.</div>
-          <div class="pv pv-normal">[Seneca]</div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>
