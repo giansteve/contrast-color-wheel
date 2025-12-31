@@ -11,7 +11,7 @@
 }
 
 html {
-  font-size: medium;
+  font-size: 12pt;
 }
 
 body {
@@ -30,7 +30,7 @@ body {
 
 .header h1 {
   margin: 0 0 6px 0;
-  font-size: 22px;
+  font-size: 19.4pt;
 }
 
 .sub {
@@ -64,7 +64,7 @@ body {
 }
 
 label {
-  font-size: 15px;
+  font-size: 12pt;
   color: var(--muted);
 }
 
@@ -94,7 +94,7 @@ input[type="color"] {
 }
 
 .chip {
-  font-size: 15px;
+  font-size: 12pt;
   padding: 4px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
@@ -125,7 +125,7 @@ input[type="color"] {
 
 .hint {
   margin-top: 8px;
-  font-size: 15px;
+  font-size: 12pt;
   color: var(--muted);
 }
 
@@ -152,7 +152,7 @@ input[type="color"] {
 }
 
 .swatchLabel {
-  font-size: 15px;
+  font-size: 12pt;
   color: var(--muted);
   margin-bottom: 8px;
 }
@@ -179,12 +179,12 @@ input[type="color"] {
 
 .k {
   color: var(--muted);
-  font-size: 15px;
+  font-size: 12pt;
   font-weight: 700;
 }
 
 .v {
-  font-size: 15px;
+  font-size: 12pt;
 }
 
 .badge {
@@ -202,12 +202,12 @@ input[type="color"] {
 .math summary {
   cursor: pointer;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 12pt;
 }
 
 .mathBody {
   margin-top: 8px;
-  font-size: 15px;
+  font-size: 12pt;
   line-height: 1.45;
   color: #333;
 }
@@ -215,7 +215,7 @@ input[type="color"] {
 .footer {
   margin-top: 12px;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 12pt;
 }
 
 @media (max-width: 960px) {
@@ -231,7 +231,7 @@ input[type="color"] {
 }
 
 .previewLabel {
-  font-size: 15px;
+  font-size: 12pt;
   color: var(--muted);
   margin-bottom: 8px;
 }
@@ -242,9 +242,12 @@ input[type="color"] {
 }
 
 .pv {
-  font-size: 16px;
+  font-size: 14pt;
   line-height: 1.4;
   margin-bottom: 6px;
+  /* text-decoration: underline dotted;
+  text-underline-offset: 2px;
+  cursor: help; */
 }
 
 .pv-bold {
@@ -315,5 +318,5 @@ input[type="color"] {
   gap: 14px;
   flex-wrap: wrap;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 12pt;
 }

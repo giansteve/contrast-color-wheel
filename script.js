@@ -20,6 +20,26 @@ const els = {
   use7: document.getElementById("use7"),
 };
 
+function enforceExclusiveLevels(changed) {
+  const boxes = [els.use3, els.use45, els.use7].filter(Boolean);
+
+  // If user checked one, uncheck the others
+  if (changed.checked) {
+    for (const b of boxes) {
+      if (b !== changed) b.checked = false;
+    }
+  } else {
+    // Prevent "none selected": if they unchecked the last one, re-check it
+    const anyChecked = boxes.some(b => b.checked);
+    if (!anyChecked) changed.checked = true;
+  }
+}
+
+els.use3?.addEventListener("change", (e) => { enforceExclusiveLevels(e.target); drawWheel(); });
+els.use45?.addEventListener("change", (e) => { enforceExclusiveLevels(e.target); drawWheel(); });
+els.use7?.addEventListener("change", (e) => { enforceExclusiveLevels(e.target); drawWheel(); });
+
+
 const ctx = els.wheel.getContext("2d", { willReadFrequently: true });
 
 /** Set isolines to any values (>1) you want */
@@ -39,16 +59,9 @@ let isDragging = false;
 let appliedBgHex = "#fafafa"; // only this triggers recomputation
 
 function requiredThreshold() {
-  const ts = [];
-  if (els.use3?.checked) ts.push(3.0);
-  if (els.use45?.checked) ts.push(4.5);
-  if (els.use7?.checked) ts.push(7.0);
-
-  // if none checked, default to 3.0 so it never becomes empty by accident
-  if (ts.length === 0) return 3.0;
-
-  // AND behavior: require the strictest selected level
-  return Math.max(...ts);
+  if (els.use7?.checked) return 7.0;
+  if (els.use45?.checked) return 4.5;
+  return 3.0; // default
 }
 
 function passesSelectedLevels(cr) {
@@ -437,9 +450,9 @@ els.wheel.addEventListener("pointercancel", () => {
   isDragging = false;
 });
 
-els.use3?.addEventListener("change", drawWheel);
-els.use45?.addEventListener("change", drawWheel);
-els.use7?.addEventListener("change", drawWheel);
+// els.use3?.addEventListener("change", drawWheel);
+// els.use45?.addEventListener("change", drawWheel);
+// els.use7?.addEventListener("change", drawWheel);
 
 (function init() {
   appliedBgHex = els.bgPending.value.toLowerCase();
