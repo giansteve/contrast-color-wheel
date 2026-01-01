@@ -2,9 +2,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta property="og:title" content="WCAG Contrast Color Wheel" />
+    <meta
+      property="og:description"
+      content="Interactive tool to explore accessible color contrast using WCAG guidelines."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wcagwheel.com/" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-
+    <meta
+      name="description"
+      content="Interactive WCAG contrast color wheel. Explore accessible color combinations with real-time contrast ratios for WCAG AA and AAA compliance."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,9 +25,8 @@
       href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <title>Contrast Isoline Color Wheel (WCAG)</title>
+    <title>WCAG Contrast color wheel</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- <script src="script.js?v=0.1.0"></script> -->
   </head>
 
   <body>
@@ -25,13 +34,15 @@
       <header class="header">
         <h1>Contrast Isoline Color Wheel</h1>
         <p class="sub">
+          This tool visualizes color contrast ratios defined by
           <a
             href="https://www.w3.org/WAI/standards-guidelines/wcag/"
             target="_blank"
             >WCAG</a
           >
-          contrast isolines against a chosen background. Drag the selector on
-          the wheel.
+          guidelines. Select a background color and explore which foreground
+          colors meet contrast requirements for normal and large text.contrast
+          isolines against a chosen background. Drag the selector on the wheel.
         </p>
       </header>
 
@@ -62,11 +73,16 @@
 
       <section class="stage">
         <div class="canvasWrap">
+          <p id="wheel-desc" class="visually-hidden">
+            Interactive color wheel showing WCAG contrast isolines for selected
+            background color.
+          </p>
           <canvas
             id="wheel"
             width="600"
             height="600"
-            aria-label="Color wheel"
+            aria-describedby="wheel-desc"
+            aria-label="WCAG contrast color wheel"
           ></canvas>
         </div>
 
