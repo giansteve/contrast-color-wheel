@@ -242,20 +242,64 @@ input[type="color"] {
 }
 
 .pv {
-  font-size: 14pt;
-  line-height: 1.4;
-  margin-bottom: 6px;
-  /* text-decoration: underline dotted;
-  text-underline-offset: 2px;
-  cursor: help; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
+.pvBadges {
+  display: inline-flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pvBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 1;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.6);
+}
+
+.pvBadge.pass {
+  border-color: rgba(0, 140, 0, 0.35);
+  background: rgba(0, 200, 0, 0.12);
+}
+
+.pvBadge.fail {
+  border-color: rgba(140, 0, 0, 0.35);
+  background: rgba(200, 0, 0, 0.12);
+}
+
+
+.pv-light {
+  font-weight: 400;
+}
+.pv-normal {
+  font-weight: 500;
+}
 .pv-bold {
   font-weight: 700;
 }
 
 .pv-italic {
   font-style: italic;
+}
+
+.pv-20 {
+  font-size: 20pt;
+}
+.pv-18 {
+  font-size: 18pt;
+}
+.pv-14 {
+  font-size: 14pt;
 }
 
 .previewGrid {

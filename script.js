@@ -118,7 +118,7 @@ function hslToRgb(h, s, l) {
   else if (2 <= hp && hp < 3) [r1, g1, b1] = [0, c, x];
   else if (3 <= hp && hp < 4) [r1, g1, b1] = [0, x, c];
   else if (4 <= hp && hp < 5) [r1, g1, b1] = [x, 0, c];
-  else [r1, g1, b1] = [c, 0, x];
+  else[r1, g1, b1] = [c, 0, x];
 
   const m = l - c / 2;
   return {
@@ -132,6 +132,16 @@ function setBadge(el, ok) {
   el.textContent = ok ? "PASS" : "FAIL";
   el.style.background = ok ? "rgba(0, 200, 0, 0.12)" : "rgba(200, 0, 0, 0.12)";
 }
+
+function setPreviewBadge(el, level, ok) {
+  el.classList.toggle("pass", ok);
+  el.classList.toggle("fail", !ok);
+
+  // label like: "3.0 ✓" or "4.5 ✗"
+  const label = level === 45 ? "4.5" : (level === 3 ? "3.0" : "7.0");
+  el.textContent = ok ? `${label} ✓` : `${label} ✗`;
+}
+
 
 function updateReadout(bgRgb, fgRgb) {
   const cr = contrastRatio(bgRgb, fgRgb);
@@ -153,7 +163,21 @@ function updateReadout(bgRgb, fgRgb) {
 
   pvSans.style.color = fgHex;
   pvSerif.style.color = fgHex;
+
+  // NEW: update per-line preview status chips
+  const roots = [pvSans, pvSerif];
+  for (const root of roots) {
+    root.querySelectorAll(".pv").forEach((row) => {
+      row.querySelectorAll(".pvBadge").forEach((badge) => {
+        const lvl = badge.dataset.level;
+        const threshold = lvl === "3" ? 3.0 : (lvl === "45" ? 4.5 : 7.0);
+        const ok = cr >= threshold;
+        setPreviewBadge(badge, lvl === "45" ? 45 : Number(lvl), ok);
+      });
+    });
+  }
 }
+
 
 function isolineStrength(T) {
   const t = Math.min(12, Math.max(2, T));
@@ -198,7 +222,7 @@ function drawSelectorCircle(x, y) {
   ctx.lineWidth = 3;
   ctx.strokeStyle = "#000000";
   ctx.stroke();
-  
+
   ctx.beginPath();
   ctx.arc(x + 0.5, y + 0.5, 5, 0, Math.PI * 2);
   ctx.lineWidth = 3;
@@ -441,7 +465,7 @@ els.wheel.addEventListener("pointerup", (e) => {
   isDragging = false;
   try {
     els.wheel.releasePointerCapture(e.pointerId);
-  } catch {}
+  } catch { }
 });
 
 els.wheel.addEventListener("pointercancel", () => {
